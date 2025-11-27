@@ -12,9 +12,24 @@ declare(strict_types=1);
 namespace ACSEO\SyliusTypesense\Entity\Product;
 
 use Sylius\Component\Product\Model\ProductTranslation as BaseProductTranslation;
+use Sylius\Component\Core\Model\ProductTranslationInterface;
 
-class ProductTranslation extends BaseProductTranslation
+class ProductTranslation extends BaseProductTranslation implements ProductTranslationInterface
 {
+
+    #[ORM\Column(type: 'text', nullable: true)]
+    private ?string $shortDescription = null;
+
+    public function getShortDescription(): ?string
+    {
+        return $this->shortDescription;
+    }
+
+    public function setShortDescription(?string $shortDescription): void
+    {
+        $this->shortDescription = $shortDescription;
+    }
+    
     public function __toString(): string
     {
         return $this->getName() ?? '';
